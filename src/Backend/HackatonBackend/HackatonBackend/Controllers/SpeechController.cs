@@ -29,9 +29,12 @@ namespace HackatonBackend.Controllers
             string uniqueFileName = Path.GetFileNameWithoutExtension(model.File.FileName) + "_" +
                                     Guid.NewGuid().ToString() +
                                     Path.GetExtension(model.File.FileName);
+            Console.WriteLine("unique name: " + uniqueFileName);
+            var directory = Utils.GetDir.GetSpecificSubdirPath("Data");
+            //Console
             DataSetGetter dataSetGetter = new DataSetGetter();
             List<DataSet> dataSets = dataSetGetter.GetMockSets();
-            string? input = await SpeechHandler.SpeechHandler.Transcript(model.File.FileName, true);
+            string? input = await SpeechHandler.SpeechHandler.Transcript(directory+model.File.FileName, true);
             if(string.IsNullOrWhiteSpace(input))
             {
                 return null;
@@ -39,7 +42,6 @@ namespace HackatonBackend.Controllers
             DataSet bestDataSet = dataSetGetter.GetBestDataset(input, dataSets);
             WebManager webManager = new WebManager();
             // TODO fix this
-            var directory = Utils.GetDir.GetSpecificSubdirPath("HackatonBackend\\Data");
 
             string bestDatasetContent = System.IO.File.ReadAllText(directory + bestDataSet.Name);
 
