@@ -1,4 +1,4 @@
-
+using Microsoft.Extensions.Configuration;
 namespace HackatonBackend
 {
     public class Program
@@ -13,9 +13,7 @@ namespace HackatonBackend
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder = new ConfigurationBuilder()
-                    .SetBasePath(env.ContentRootPath)
-                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
