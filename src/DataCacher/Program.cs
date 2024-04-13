@@ -1,8 +1,19 @@
-﻿class program
+﻿namespace DataCacher
 {
-    public static int Main()
+    class program
     {
-        Console.WriteLine("hello world!");
-        return 0;
+        public static int Main()
+        {
+            List<(string, string)> testdata = new List<(string, string)>()
+            {
+                ("abcde","efgh"),
+                ("Tomáš", "Jedno"),
+            };
+            Console.WriteLine(System.IO.Directory.GetCurrentDirectory());
+            //DataCacher dataCacher = new DataCacher(System.IO.Directory.GetCurrentDirectory());
+            //dataCacher.Data2CSV(testdata);
+            Console.WriteLine("hello world!");
+            return 0;
+        }
     }
 }
