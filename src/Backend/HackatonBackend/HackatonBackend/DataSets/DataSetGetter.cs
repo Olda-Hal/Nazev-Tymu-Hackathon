@@ -72,7 +72,7 @@ namespace HackatonBackend.DataSets
                 }
             }
         }
-        public List<String>? GetMockSets()
+        public List<DataSet>? GetMockSets()
         {
             string folderPath = @"../../../Data";
             List<DataSet> sets = new List<DataSet>();
