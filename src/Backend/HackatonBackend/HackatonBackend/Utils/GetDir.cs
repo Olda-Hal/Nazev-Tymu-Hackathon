@@ -15,7 +15,7 @@
         public static string GetSpecificSubdirPath(string pathSuffix = "")
         {
             var dir = GetDirectory();
-            return dir.FullName + "\\" + pathSuffix + "\\";
+            return dir.FullName + "\\HackatonBackend\\" + pathSuffix + "\\";
         }
     }
 }

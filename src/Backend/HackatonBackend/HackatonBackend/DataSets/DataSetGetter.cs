@@ -75,7 +75,8 @@ namespace HackatonBackend.DataSets
         public List<DataSet> GetMockSets()
         {
             string folderPath = @"../../../Data";
-            folderPath = "C:\\Users\\petra\\Desktop\\hackathon\\Nazev-Tymu-Hackathon\\src\\Backend\\HackatonBackend\\HackatonBackend\\Data\\";
+            folderPath = Utils.GetDir.GetSpecificSubdirPath("Data");
+            Console.WriteLine(folderPath);
             List<DataSet> sets = new List<DataSet>();
 
             // Check if the directory exists

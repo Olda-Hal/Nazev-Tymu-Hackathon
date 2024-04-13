@@ -9,7 +9,7 @@ namespace HackatonBackend.Image
         {
             string pythonInterpreter = "python3";
             //!TODO
-            string pythonScript = @"C:\Users\petra\Desktop\hackathon\Nazev-Tymu-Hackathon\src\Backend\HackatonBackend\HackatonBackend\Image\imageSend.py";
+            string pythonScript = Utils.GetDir.GetSpecificSubdirPath("Image") + "imageSend.py";
             string? Key = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("OpenAPIKey")["Key"];
             char[] temp = Key!.ToCharArray();
             Array.Reverse(temp);
