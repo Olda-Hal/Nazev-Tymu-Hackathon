@@ -65,7 +65,7 @@ namespace HackatonBackend.DataSets
             string reversedKey = new string(temp);
             var api = new OpenAI_API.OpenAIAPI(apiKeys: reversedKey);
             var chat = api.Chat.CreateConversation();
-            chat.Model = new OpenAI_API.Models.Model("gpt-4-turbo");
+            chat.Model = new OpenAI_API.Models.Model("gpt-3.5-turbo");
             string PREPROMT = "Jsi assistent na stránce BrnoID. tvým úkolem bude radit ohledně otázek týkající se města Brna." +
                 " V následnují otázce dostaneš seznam datasetů a jejich popisů." +
                 " Z jmena udělej stručnější popis o max dvou větách." +
