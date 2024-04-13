@@ -2,6 +2,7 @@
 using HackatonBackend.Models;
 using HackatonBackend.ResponseAIWeb;
 using Microsoft.AspNetCore.Mvc;
+using static System.Net.Mime.MediaTypeNames;
 namespace HackatonBackend.Controllers
 {
     [ApiController]
@@ -46,7 +47,25 @@ namespace HackatonBackend.Controllers
 
             Console.WriteLine(res);
             Console.WriteLine(resMP3Path);
-            return Ok(new { FilePath = resMP3Path });
+
+            // Path to your .mp3 file
+            string filePath = resMP3Path.Replace(@"\", @"\\");
+
+            // Check if the file exists
+            if (!System.IO.File.Exists(filePath))
+            {
+                return NotFound(); // Or handle the error as needed
+            }
+
+            // Read the file into a byte array (you can also stream it)
+            byte[] fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
+
+            // Set the response headers
+            Response.Headers.Add("Content-Disposition", "inline; filename="+uniqueFileName);
+            Response.Headers.Add("Content-Type", "audio/mpeg"); // MIME type for .mp3
+
+            // Write the file content to the response body
+            return File(fileBytes, "audio/mpeg");
         }
     }
 }
