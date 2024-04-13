@@ -45,19 +45,19 @@
             }
             return outputPath;
         }
-        public static async Task<string> GetSpeechResponse(string inputMP3Path,string outputMP3Path)
-        {
-            var api = getAPI();
-            string? str = await Transcript(api,inputMP3Path, true);
-            var chat = api.Chat.CreateConversation();
-            if (str==null)
-            {
-                throw new Exception("Failed to convert MP3 to string");
-            }
-            chat.Model = new OpenAI_API.Models.Model("gpt-4-turbo");
+        //public static async Task<string> GetSpeechResponse(string inputMP3Path,string outputMP3Path)
+        //{
+        //    var api = getAPI();
+        //    string? str = await Transcript(api,inputMP3Path, true);
+        //    var chat = api.Chat.CreateConversation();
+        //    if (str==null)
+        //    {
+        //        throw new Exception("Failed to convert MP3 to string");
+        //    }
+        //    chat.Model = new OpenAI_API.Models.Model("gpt-4-turbo");
 
-            return await TextToSpeech(api, inputMP3Path, outputMP3Path);
-        }
+        //    return await TextToSpeech(api, inputMP3Path, outputMP3Path);
+        //}
 
     }
 }
