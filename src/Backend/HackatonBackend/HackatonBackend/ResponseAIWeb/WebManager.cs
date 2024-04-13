@@ -23,12 +23,12 @@ namespace HackatonBackend.ResponseAIWeb
         public OpenAI_API.OpenAIAPI API { get; set; }
         public List<AIClient> clients { get; set; }
 
-        public WebManager(int density=3, List<string> plausibleModels = null)
+        public WebManager(int density=4, List<string> plausibleModels = null)
         {
             API = new OpenAI_API.OpenAIAPI(APIKey);
             this.density = density;
             if (plausibleModels is null){
-                this.plausibleModels = new List<string>() { "gpt-4-turbo" };
+                this.plausibleModels = new List<string>() { "gpt-3.5-turbo" };
             }
             else
             {
@@ -49,15 +49,23 @@ namespace HackatonBackend.ResponseAIWeb
             }
             filter = new AIFilter("gpt-4-turbo", API);
         }
-        public string GenerateResponse(string prompt, string question)
+        public async Task<string> GenerateResponse(string prompt, string question)
         {
             Console.WriteLine(prompt);
+            List<Task> tasks = new List<Task>();
             List<string> response = new List<string>();
-            for (int i = 0; i < density; i++)
+            for (int i = 0; i < density-1; i++)
             {
                 Console.WriteLine($"Generating response {i}");
-                response.Add(TH.Task.Run(() => clients[i].GenerateResponse(prompt)).Result);
-                
+                //???????????????????????
+                if (i == density)
+                    break;
+                tasks.Add(TH.Task.Run(() => response.Add(clients[i].GenerateResponse(prompt))));
+            }
+            foreach(Task task in tasks)
+            {
+                if (!task.IsCompleted)
+                    await task;
             }
             return filter.Filtrate(response, question);
         }
