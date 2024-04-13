@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.IO;
+using System.Xml;
 
 namespace HackatonBackend.DataSets
 {
@@ -31,6 +32,29 @@ namespace HackatonBackend.DataSets
                     throw new Exception("No DataSets found");
                 }
             }
+        }
+        public List<String> GetMockSets()
+        {
+            string folderPath = @"C:\YourFolderPath";
+
+            // Check if the directory exists
+            if (Directory.Exists(folderPath))
+            {
+                // Get all file names in the directory
+                string[] fileNames = Directory.GetFiles(folderPath);
+
+                // Display each file name
+                foreach (string fileName in fileNames)
+                {
+                    Console.WriteLine(fileName);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Directory does not exist.");
+            }
+
+            Console.ReadLine(); // Keep console window open
         }
         List<DataSet>? ParseXml(string xmlContent)
         {
