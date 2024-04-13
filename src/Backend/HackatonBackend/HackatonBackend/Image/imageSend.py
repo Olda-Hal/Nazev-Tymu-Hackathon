@@ -50,5 +50,5 @@ payload = {
 response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
 
 content = response.json()['choices'][0]['message']['content']
-decoded = content.encode().decode('windows-1250')
+decoded = content.encode().decode('windows-1250',errors='ignore')
 print(decoded)
