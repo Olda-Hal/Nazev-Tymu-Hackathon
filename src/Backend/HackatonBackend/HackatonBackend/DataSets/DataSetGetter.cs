@@ -33,28 +33,22 @@ namespace HackatonBackend.DataSets
                 }
             }
         }
-        public List<String> GetMockSets()
+        public List<String>? GetMockSets()
         {
-            string folderPath = @"C:\YourFolderPath";
+            string folderPath = @"../../../Data";
 
             // Check if the directory exists
             if (Directory.Exists(folderPath))
             {
                 // Get all file names in the directory
-                string[] fileNames = Directory.GetFiles(folderPath);
-
-                // Display each file name
-                foreach (string fileName in fileNames)
-                {
-                    Console.WriteLine(fileName);
-                }
+                return Directory.GetFiles(folderPath).ToList();
             }
             else
             {
                 Console.WriteLine("Directory does not exist.");
             }
 
-            Console.ReadLine(); // Keep console window open
+            return null;
         }
         List<DataSet>? ParseXml(string xmlContent)
         {
