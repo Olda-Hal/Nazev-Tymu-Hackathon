@@ -5,6 +5,9 @@ using OpenAI_API;
 using System.Collections;
 using TH = System.Threading.Tasks;
 using HackatonBackend.ResponseAIWeb;
+using HackatonBackend.DataSets;
+using System.Collections.Generic;
+using System.IO;
 
 namespace HackatonBackend.Controllers
 {
@@ -22,8 +25,18 @@ namespace HackatonBackend.Controllers
         [HttpGet("{input}", Name = "AskAI")]
         public async Task<IEnumerable<AIPrompt>> Get(string input)
         {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return null;
+            }
+            DataSetGetter dataSetGetter = new DataSetGetter();
+            List<DataSet> dataSets = dataSetGetter.GetMockSets();
+            DataSet bestDataSet = dataSetGetter.GetBestDataset(input, dataSets);
             WebManager webManager = new WebManager();
-            string res = webManager.GenerateResponse(input, input);
+            string bestDatasetContent = System.IO.File.ReadAllText("C:\\Users\\oldah\\Desktop\\programovani\\github\\Nazev-Tymu-Hackathon\\src\\Backend\\HackatonBackend\\HackatonBackend\\Data\\" + bestDataSet.Name);
+
+
+            string res = webManager.GenerateResponse(bestDatasetContent + input, input);
 
             AIPrompt aIRequest = new AIPrompt
             {

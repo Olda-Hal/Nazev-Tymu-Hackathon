@@ -51,6 +51,7 @@ namespace HackatonBackend.ResponseAIWeb
         }
         public string GenerateResponse(string prompt, string question)
         {
+            Console.WriteLine(prompt);
             List<string> response = new List<string>();
             for (int i = 0; i < density; i++)
             {
