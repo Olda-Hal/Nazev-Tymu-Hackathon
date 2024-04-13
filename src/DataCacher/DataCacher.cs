@@ -13,19 +13,21 @@ namespace DataCacher
         {
             this.path = path;
         }
-        public void Data2CSV(List<(string,string)> data)
+        public void Data2CSV(List<DataSet> data)
         {
-            String fullPath = path+"cache.csv";
-
-            using (var streamWriter = new StreamWriter(fullPath))
+            if(data!=null)
             {
-                // Write header
-                streamWriter.WriteLine("Name,Age");
-
-                // Write data rows
-                foreach (var item in data)
+                String fullPath = path+"cache.csv";
+                using (var streamWriter = new StreamWriter(fullPath))
                 {
-                    streamWriter.WriteLine($"{item.Item1},{item.Item2}");
+                    // Write header
+                    streamWriter.WriteLine("Name|Age");
+
+                    // Write data rows
+                    foreach (var item in data)
+                    {
+                        streamWriter.WriteLine($"{item.Name}|{item.Description}");
+                    }
                 }
             }
         }
