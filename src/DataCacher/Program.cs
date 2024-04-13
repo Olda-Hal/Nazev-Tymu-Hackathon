@@ -1,8 +1,10 @@
-﻿class program
+﻿using HackatonBackend.DataSets;
+
+class program
 {
     public static int Main()
     {
-        Console.WriteLine("hello world!");
+        new DataSetGetter().GetValidDataSets();
         return 0;
     }
 }

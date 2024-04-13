@@ -29,7 +29,6 @@ namespace HackatonBackend.DataFetcher
             ds += question;
             chat.AppendUserInput(ds);
             var response = chat.GetResponseFromChatbotAsync().Result;
-            Console.WriteLine(response);
             return response;
         }
         private string ReverseString(string str)
