@@ -45,7 +45,7 @@ namespace HackatonBackend.DataSets
             }
             else
             {
-                Console.WriteLine("Directory does not exist.");
+                throw new Exception("Directory does not exist.");
             }
 
             return null;

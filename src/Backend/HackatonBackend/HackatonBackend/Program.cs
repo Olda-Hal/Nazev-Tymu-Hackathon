@@ -15,8 +15,6 @@ namespace HackatonBackend
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
-            var get = new DataSets.DataSetGetter();
-            Console.WriteLine(new DataFetcher.DataFetcher().GetValidDataSets("Jak se efektivnì dostat z mendláku na zvonaøku?"));
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
