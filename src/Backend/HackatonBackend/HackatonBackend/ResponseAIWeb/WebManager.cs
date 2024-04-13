@@ -28,7 +28,7 @@ namespace HackatonBackend.ResponseAIWeb
             API = new OpenAI_API.OpenAIAPI(APIKey);
             this.density = density;
             if (plausibleModels is null){
-                this.plausibleModels = new List<string>() { "gpt3-turbo" };
+                this.plausibleModels = new List<string>() { "gpt-3.5-turbo" };
             }
             else
             {
@@ -40,6 +40,7 @@ namespace HackatonBackend.ResponseAIWeb
         }
         private void inicializeWeb()
         {
+            clients = new List<AIClient>();
             for (int i = 0; i < density; i++)
             {
                 // picks random model from plausiblemodels and creates a client
@@ -53,6 +54,7 @@ namespace HackatonBackend.ResponseAIWeb
             List<string> response = new List<string>();
             for (int i = 0; i < density; i++)
             {
+                Console.WriteLine($"Generating response {i}");
                 response.Add(TH.Task.Run(() => clients[i].GenerateResponse(prompt)).Result);
                 
             }
