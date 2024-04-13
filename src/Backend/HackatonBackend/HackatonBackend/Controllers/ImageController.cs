@@ -14,7 +14,6 @@ namespace HackatonBackend.Controllers
 
         public ImageController()
         {
-            // Specify the folder where uploaded files will be stored
             _uploadFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
             if (!Directory.Exists(_uploadFolderPath))
             {
@@ -29,71 +28,17 @@ namespace HackatonBackend.Controllers
             {
                 return BadRequest("Invalid file");
             }
-
-            // Generate a unique file name to prevent conflicts
             string uniqueFileName = Path.GetFileNameWithoutExtension(model.File.FileName) + "_" +
                                     Guid.NewGuid().ToString() +
                                     Path.GetExtension(model.File.FileName);
-
-            // Combine the upload folder path with the unique file name
             string filePath = Path.Combine(_uploadFolderPath, uniqueFileName);
-
-            // Save the uploaded file to the server
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await model.File.CopyToAsync(stream);
             }
-
+            var metaData = Image.MetadataConverter.GetMetadata(filePath);
+            Console.WriteLine(metaData);
             return Ok(new { FilePath = filePath });
-        }
-        public string GetMetadata(string filePath)
-        {
-            string ret = "";
-            try
-            {
-                using (var stream = new System.IO.FileStream(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
-                {
-                    var image = System.Drawing.Image.FromStream(stream, false, false);
-
-                    if (image.PropertyIdList != null)
-                    {
-                        foreach (int propertyId in image.PropertyIdList)
-                        {
-                            var propItem = image.GetPropertyItem(propertyId);
-
-                            if (propertyId == 0x0004) 
-                            {
-                                var gpsInfo = GetGpsInfo(propItem);
-                                ret +=$"GPS Info: {gpsInfo}\n";
-                            }
-                            else if (propertyId == 0x013b)
-                            {
-                                var author = System.Text.Encoding.ASCII.GetString(propItem.Value);
-                                Console.WriteLine($"Author: {author}");
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error reading metadata: {ex.Message}");
-            }
-            return ret;
-        }
-        private string GetGpsInfo(PropertyItem propItem)
-        {
-            double degrees = BitConverter.ToUInt32(propItem.Value, 0) / BitConverter.ToUInt32(propItem.Value, 4);
-            double minutes = BitConverter.ToUInt32(propItem.Value, 8) / BitConverter.ToUInt32(propItem.Value, 12);
-            double seconds = BitConverter.ToUInt32(propItem.Value, 16) / BitConverter.ToUInt32(propItem.Value, 20);
-
-            string directionRef = System.Text.Encoding.ASCII.GetString(propItem.Value, 4, 4).Trim();
-            string latitudeRef = directionRef[0] == 'N' ? "North" : "South";
-
-            string longitudeRef = System.Text.Encoding.ASCII.GetString(propItem.Value, 20, 4).Trim();
-            string longitudeDir = longitudeRef[0] == 'E' ? "East" : "West";
-
-            return $"{degrees}° {minutes}' {seconds}\" {latitudeRef}, {longitudeDir}";
         }
     }
 }
