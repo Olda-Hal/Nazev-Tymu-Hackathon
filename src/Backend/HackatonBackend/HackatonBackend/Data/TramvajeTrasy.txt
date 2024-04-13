@@ -1,0 +1,2 @@
+ČÍSLO;ZASTÁVKA;......;ZÁSTÁVKA
+1;

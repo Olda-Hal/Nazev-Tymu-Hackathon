@@ -23,7 +23,6 @@ namespace HackatonBackend.DataSets
                 if (response.IsSuccessStatusCode)
                 {
                     string xmlContent = await response.Content.ReadAsStringAsync();
-                    // Now you can parse the XML data
                     return ParseXml(xmlContent);
 
                 }
