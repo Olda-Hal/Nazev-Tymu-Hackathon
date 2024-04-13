@@ -77,14 +77,19 @@ namespace HackatonBackend.DataSets
             int i = 0;
             foreach (var dt in GetAllSets().Result!)
             {
-                
-                ds += "[NAME:" + dt.Name + ";DESCRIPTION:"+"]\n";
+                i++;
+                ds += "[NAME:" + dt.Name + ";DESCRIPTION:" + "]\n";
                 chat.AppendUserInput(ds);
                 var response = chat.GetResponseFromChatbotAsync().Result;
-                result += response+= "\n";
-                Console.WriteLine(response);
+                result += response += "\n";
                 var words = response.Split(';');
                 ret.Add(new DataSet() { Name = words[0], Description = words[1] });
+                ds = "";
+                if (i == 10)
+                {
+                    Thread.Sleep(30000);
+                    i = 0;
+                }
             }
             return ret;
         }
