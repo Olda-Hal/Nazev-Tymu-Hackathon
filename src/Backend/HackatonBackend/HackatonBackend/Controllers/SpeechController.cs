@@ -39,7 +39,9 @@ namespace HackatonBackend.Controllers
             DataSet bestDataSet = dataSetGetter.GetBestDataset(input, dataSets);
             WebManager webManager = new WebManager();
             // TODO fix this
-            string bestDatasetContent = System.IO.File.ReadAllText("C:\\Users\\petra\\Desktop\\hackathon\\Nazev-Tymu-Hackathon\\src\\Backend\\HackatonBackend\\HackatonBackend\\Data\\" + bestDataSet.Name);
+            var directory = Utils.GetDir.GetSpecificSubdirPath("HackatonBackend\\Data");
+
+            string bestDatasetContent = System.IO.File.ReadAllText(directory + bestDataSet.Name);
 
 
             string res = webManager.GenerateResponse(bestDatasetContent + input, input);
