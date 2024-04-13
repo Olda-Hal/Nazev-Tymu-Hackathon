@@ -33,7 +33,7 @@ namespace HackatonBackend.Controllers
             List<DataSet> dataSets = dataSetGetter.GetMockSets();
             DataSet bestDataSet = dataSetGetter.GetBestDataset(input, dataSets);
             WebManager webManager = new WebManager();
-            string bestDatasetContent = System.IO.File.ReadAllText("C:\\Users\\oldah\\Desktop\\programovani\\github\\Nazev-Tymu-Hackathon\\src\\Backend\\HackatonBackend\\HackatonBackend\\Data\\" + bestDataSet.Name);
+            string bestDatasetContent = System.IO.File.ReadAllText("C:\\Users\\petra\\Desktop\\hackathon\\Nazev-Tymu-Hackathon\\src\\Backend\\HackatonBackend\\HackatonBackend\\Data\\" + bestDataSet.Name);
 
 
             string res = webManager.GenerateResponse(bestDatasetContent + input, input);
