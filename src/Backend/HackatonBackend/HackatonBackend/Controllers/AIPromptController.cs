@@ -37,7 +37,7 @@ namespace HackatonBackend.Controllers
             bestDatasetContent += "\n Dnešní datum je 14.4.2024\n";
 
 
-            string res = webManager.GenerateResponse(bestDatasetContent + input, input);
+            string res = webManager.GenerateResponse(bestDatasetContent + input, input).Result;
 
             AIPrompt aIRequest = new AIPrompt
             {

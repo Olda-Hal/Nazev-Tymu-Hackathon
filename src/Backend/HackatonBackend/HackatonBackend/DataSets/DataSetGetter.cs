@@ -19,7 +19,7 @@ namespace HackatonBackend.DataSets
             string reversedKey = new string(temp);
             var api = new OpenAI_API.OpenAIAPI(apiKeys: reversedKey);
             var chat = api.Chat.CreateConversation();
-            chat.Model = new OpenAI_API.Models.Model("gpt-4-turbo");
+            chat.Model = new OpenAI_API.Models.Model("gpt-3.5-turbo");
             string PREPROMT = "Dostaneš seznam datasetů ve formatu NAME:jmenoDataSetu; a taky otázku. tvým úkolem bude vybrat jeden dataset který nejlépe pomůže odpovědět na zadanou otázku. odpovíš steným formátem jak ti byl zadaný Dataset. tudíž NAME:jmenoDataSetu";
             chat.AppendSystemMessage(PREPROMT);
             string ds = "";
