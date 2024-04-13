@@ -14,7 +14,6 @@ namespace HackatonBackend.Controllers
 
         public ImageController()
         {
-            // Specify the folder where uploaded files will be stored
             _uploadFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
             if (!Directory.Exists(_uploadFolderPath))
             {
@@ -29,21 +28,14 @@ namespace HackatonBackend.Controllers
             {
                 return BadRequest("Invalid file");
             }
-
-            // Generate a unique file name to prevent conflicts
             string uniqueFileName = Path.GetFileNameWithoutExtension(model.File.FileName) + "_" +
                                     Guid.NewGuid().ToString() +
                                     Path.GetExtension(model.File.FileName);
-
-            // Combine the upload folder path with the unique file name
             string filePath = Path.Combine(_uploadFolderPath, uniqueFileName);
-
-            // Save the uploaded file to the server
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await model.File.CopyToAsync(stream);
             }
-
             return Ok(new { FilePath = filePath });
         }
         public string GetMetadata(string filePath)
@@ -69,7 +61,7 @@ namespace HackatonBackend.Controllers
                             else if (propertyId == 0x013b)
                             {
                                 var author = System.Text.Encoding.ASCII.GetString(propItem.Value);
-                                Console.WriteLine($"Author: {author}");
+                                ret += $"Author: {author}\n";
                             }
                         }
                     }
@@ -77,7 +69,7 @@ namespace HackatonBackend.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error reading metadata: {ex.Message}");
+                Console.Error.WriteLine($"Error reading metadata: {ex.Message}");
             }
             return ret;
         }
