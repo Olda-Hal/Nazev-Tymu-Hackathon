@@ -72,9 +72,11 @@ namespace HackatonBackend.DataSets
                 }
             }
         }
-        public List<DataSet>? GetMockSets()
+        public List<DataSet> GetMockSets()
         {
-            string folderPath = @"C:\Users\oldah\Desktop\programovani\github\Nazev-Tymu-Hackathon\src\Backend\HackatonBackend\HackatonBackend\Data\";
+            string folderPath = @"../../../Data";
+            folderPath = Utils.GetDir.GetSpecificSubdirPath("Data");
+            Console.WriteLine(folderPath);
             List<DataSet> sets = new List<DataSet>();
 
             // Check if the directory exists
