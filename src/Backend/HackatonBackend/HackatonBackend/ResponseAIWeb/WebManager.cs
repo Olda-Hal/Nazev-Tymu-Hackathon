@@ -28,7 +28,7 @@ namespace HackatonBackend.ResponseAIWeb
             API = new OpenAI_API.OpenAIAPI(APIKey);
             this.density = density;
             if (plausibleModels is null){
-                this.plausibleModels = new List<string>() { "gpt-3.5-turbo" };
+                this.plausibleModels = new List<string>() { "gpt-4-turbo" };
             }
             else
             {

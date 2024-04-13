@@ -24,6 +24,7 @@ namespace HackatonBackend.Controllers
         {
             WebManager webManager = new WebManager();
             string res = webManager.GenerateResponse(input, input);
+
             AIPrompt aIRequest = new AIPrompt
             {
                 Prompt = res,
