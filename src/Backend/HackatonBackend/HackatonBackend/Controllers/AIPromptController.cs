@@ -15,6 +15,7 @@ namespace HackatonBackend.Controllers
     [Route("[controller]")]
     public class AIPromptController : ControllerBase
     {
+        private WebManager webManager;
         private readonly ILogger<AIPromptController> _logger;
 
         public AIPromptController(ILogger<AIPromptController> logger)
@@ -32,9 +33,17 @@ namespace HackatonBackend.Controllers
             DataSetGetter dataSetGetter = new DataSetGetter();
             List<DataSet> dataSets = dataSetGetter.GetMockSets();
             DataSet bestDataSet = dataSetGetter.GetBestDataset(input, dataSets);
-            WebManager webManager = new WebManager();
-            string bestDatasetContent = System.IO.File.ReadAllText(Utils.GetDir.GetSpecificSubdirPath("Data") + bestDataSet.Name);
+            if (webManager == null)
+            {
+                webManager = new WebManager();
+            }
+            string bestDatasetContent = "";
+            if (bestDataSet != null)
+            {
+                bestDatasetContent = System.IO.File.ReadAllText(Utils.GetDir.GetSpecificSubdirPath("Data") + bestDataSet.Name);
+            }
             bestDatasetContent += "\n Dnešní datum je 14.4.2024\n";
+            
 
 
             string res = webManager.GenerateResponse(bestDatasetContent + input, input).Result;
