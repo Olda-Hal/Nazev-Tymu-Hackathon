@@ -37,8 +37,9 @@ namespace HackatonBackend.Controllers
                 await model.File.CopyToAsync(stream);
             }
             var metaData = Image.MetadataConverter.GetMetadata(filePath);
-            Image.ImageSender.SendImage(filePath);
-            return Ok(new { FilePath = filePath });
+            var promt = Image.ImageSender.SendImage(filePath).Result;
+            System.IO.File.Delete(filePath);
+            return Ok(new { Prompt = promt });
         }
     }
 }

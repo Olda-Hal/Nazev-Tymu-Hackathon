@@ -25,12 +25,15 @@ headers = {
 payload = {
   "model": "gpt-4-turbo",
   "messages": [
+      {
+            "role": "system", "content": "Jsi asistent na stránce BrnoID, tvým úkolem poznávat a popisovat obrázky. Pokud se obrázek netýká ničeho o Brně, zahoď všechny odpovědi a podpověz, že na otázku nemůžeš odpovědět"
+        },
     {
       "role": "user",
       "content": [
         {
           "type": "text",
-          "text": "Tenhle obrázek se vstahuje k městu Brno. Popiš ho co nejpřesněji a pokud se k Brnu nevztahuje, napiš, že nevíš a nic si nevymýšlej"
+          "text": "POKUD SE TENTO OBRAZEK NEVSTAHUJE K MESTU BRNU, ODPOVEZ ZE NEMUZES ODPOVEDET A NIC JINEHO NEPIS! Tenhle obrázek se nejspise vztahuje k městu Brno. Popiš ho co nejpřesněji a pokud se k Brnu nevztahuje, napiš, že nevíš a nic si nevymýšlej a nic jineho nepis!"
         },
         {
           "type": "image_url",
@@ -47,5 +50,5 @@ payload = {
 response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
 
 content = response.json()['choices'][0]['message']['content']
-decoded = content.encode('latin-1', errors='ignore').decode('utf-8')
+decoded = content.encode().decode('windows-1250')
 print(decoded)
