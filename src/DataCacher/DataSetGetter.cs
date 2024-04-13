@@ -57,8 +57,9 @@ namespace HackatonBackend.DataSets
             }
             return ret;
         }
-        public string GetValidDataSets()
+        public List<DataSet> GetValidDataSets()
         {
+            List<DataSet> ret = new List<DataSet>();
             string? Key = File.ReadAllLines("../../../key.txt").FirstOrDefault();
             char[] temp = Key!.ToCharArray();
             Array.Reverse(temp);
@@ -69,21 +70,23 @@ namespace HackatonBackend.DataSets
             string PREPROMT = "Jsi assistent na stránce BrnoID. tvým úkolem bude radit ohledně otázek týkající se města Brna." +
                 " V následnují otázce dostaneš seznam datasetů a jejich popisů." +
                 " Z jmena udělej stručnější popis o max dvou větách." +
-                " Data Sety budou ve formátu [NAME:jmeno;DESCRIPTION:popis] +. Tvé odpovědi musí být ve formátu [NAME:jmeno;DESCRIPTION:tvujPopis]";
+                " Data Sety budou ve formátu [NAME:jmeno;DESCRIPTION:popis] +. Tvé odpovědi musí být ve formátu jmeno;tvujPopis";
             chat.AppendSystemMessage(PREPROMT);
             string ds = "";
             string result = "";
             int i = 0;
             foreach (var dt in GetAllSets().Result!)
             {
+                
                 ds += "[NAME:" + dt.Name + ";DESCRIPTION:"+"]\n";
                 chat.AppendUserInput(ds);
                 var response = chat.GetResponseFromChatbotAsync().Result;
-                result += response;
+                result += response+= "\n";
                 Console.WriteLine(response);
+                var words = response.Split(';');
+                ret.Add(new DataSet() { Name = words[0], Description = words[1] });
             }
-            Console.WriteLine(result);
-            return result;
+            return ret;
         }
     }
 }
