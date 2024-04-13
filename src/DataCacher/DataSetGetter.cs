@@ -84,7 +84,14 @@ namespace HackatonBackend.DataSets
                 result += response+= "\n";
                 Console.WriteLine(response);
                 var words = response.Split(';');
-                ret.Add(new DataSet() { Name = words[0], Description = words[1] });
+                try
+                {
+                    ret.Add(new DataSet() { Name = words[0], Description = words[1] });
+                }
+                catch 
+                {
+                    break;
+                }
             }
             return ret;
         }
