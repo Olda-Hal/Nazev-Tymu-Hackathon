@@ -16,10 +16,8 @@ namespace HackatonBackend
 
             var app = builder.Build();
             var get = new DataSets.DataSetGetter();
-            foreach(var data in get.GetAllSets().Result!)
-            {
-                Console.WriteLine(data.Name);
-            }
+            Console.WriteLine(new DataFetcher.DataFetcher().GetValidDataSets("Jak se efektivnì dostat z mendláku na zvonaøku?"));
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
