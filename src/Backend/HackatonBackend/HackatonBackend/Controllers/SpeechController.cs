@@ -46,7 +46,7 @@ namespace HackatonBackend.Controllers
             string bestDatasetContent = System.IO.File.ReadAllText(directory + bestDataSet.Name);
 
 
-            string res = webManager.GenerateResponse(bestDatasetContent + input, input);
+            string res = webManager.GenerateResponse(bestDatasetContent + input, input).Result;
             string resMP3Path = await SpeechHandler.SpeechHandler.TextToSpeech(res, uniqueFileName);
 
             Console.WriteLine(res);
