@@ -1,0 +1,17 @@
+.navbar-container {
+	display: flex;
+	align-items: center;
+	min-height: 105px;
+}
+
+.left-side {
+	display: flex;
+	align-items: center;
+}
+
+@media (max-width: 768px) {
+	.navbar-container {
+		min-height: 50px;
+		align-items: center;
+	}
+}

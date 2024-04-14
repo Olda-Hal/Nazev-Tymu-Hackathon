@@ -62,7 +62,7 @@ namespace HackatonBackend.Controllers
             {
                 bestDatasetContent = System.IO.File.ReadAllText(Utils.GetDir.GetSpecificSubdirPath("Data") + bestDataSet.Name);
             }
-            bestDatasetContent += "\n Dnešní datum je 14.4.2024\n";
+            bestDatasetContent += "\n Dnešní datum je 13.4.2024\n";
             
 
 
