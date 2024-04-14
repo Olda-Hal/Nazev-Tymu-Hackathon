@@ -23,7 +23,8 @@ namespace HackatonBackend.Controllers
             _logger = logger;
         }
 
-        [HttpGet("{input}", Name = "AskAI")]
+
+        [HttpPost("{input}", Name = "AskAI")]
         public async Task<IEnumerable<AIPrompt>> Get(string input)
         {
             if (string.IsNullOrWhiteSpace(input))
