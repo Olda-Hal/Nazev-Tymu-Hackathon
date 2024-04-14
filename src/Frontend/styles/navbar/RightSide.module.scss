@@ -1,0 +1,44 @@
+.right-side {
+	display: flex;
+	list-style: none;
+	margin-left: auto;
+	align-items: center;
+}
+
+.nav-item {
+	display: flex;
+	align-items: center;
+	margin-left: 1.1rem;
+	margin-right: 1;
+	font-size: 14px;
+	font-weight: 600;
+	white-space: nowrap;
+	overflow: hidden;
+	transition: color 0.4s ease;
+
+	&:hover {
+		color: #CF3231;
+	}
+}
+
+.mobile {
+	display: none;
+	font-size: 50px;
+}
+
+@media (max-width: 768px) {
+
+	.desktop {
+		display: none;
+	}
+
+	.mobile {
+		display: block;
+		font-size: 14px;
+	}
+
+}
+
+.icon {
+	margin-right: 5px;
+}

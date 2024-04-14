@@ -1,0 +1,59 @@
+.user-count {
+	display: flex;
+	align-items: stretch;
+}
+
+.the-number {
+	padding: 16px;
+	font-size: 24px;
+	font-weight: 700;
+	background-color: white;
+	white-space: nowrap;
+	text-align: center;
+}
+
+.nevim::before {
+	height: 7px;
+	width: 7px;
+	border-radius: 50%;
+	background-color: #83a877;
+	animation: opening-hours-dot 1.5s infinite;
+}
+
+.nevim {
+	height: 7px;
+	width: 7px;
+	border-radius: 50%;
+	background-color: #83a877;
+	animation: opening-hours-dot 1.5s infinite;
+	display: inline-block;
+	margin-right: 9px;
+	margin-bottom: 5px;
+}
+
+
+.v-middle {
+	vertical-align: middle;
+}
+
+.the-label {
+	padding: 16px;
+	padding-bottom: 32px;
+}
+
+.primary {
+	font-weight: 700;
+	font-size: 16px;
+	margin-bottom: 10px;
+}
+
+.secondary {
+	color: #706F6C;
+	font-size: 14px;
+}
+
+@media (max-width: 768px) {
+	.user-count {
+		display: none;
+	}
+}
