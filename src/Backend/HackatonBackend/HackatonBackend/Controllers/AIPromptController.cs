@@ -16,6 +16,16 @@ using Microsoft.AspNetCore.Cors;
 
 namespace HackatonBackend.Controllers
 {
+    public class MessageModel
+    {
+        public List<Message> Messages { get; set; }
+    }
+
+    public class Message
+    {
+        public string Role { get; set; }
+        public string Text { get; set; }
+    }
     [ApiController]
     [Route("[controller]")]
     public class AIPromptController : ControllerBase
@@ -28,16 +38,7 @@ namespace HackatonBackend.Controllers
             _logger = logger;
         }
 
-        public class MessageModel
-        {
-            public List<Message> Messages { get; set; }
-        }
-
-        public class Message
-        {
-            public string Role { get; set; }
-            public string Text { get; set; }
-        }
+        
         [EnableCors("AllowAllOrigins")]
         [HttpPost("AskAI")]
         public async Task<IActionResult> Get([FromBody] MessageModel model)

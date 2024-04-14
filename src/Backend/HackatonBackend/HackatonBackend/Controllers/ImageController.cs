@@ -1,4 +1,5 @@
 ﻿using HackatonBackend.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -21,9 +22,12 @@ namespace HackatonBackend.Controllers
             }
         }
 
+        [EnableCors("AllowAllOrigins")]
         [HttpPost("upload")]
         public async Task<IActionResult> UploadFile([FromForm] FileUploadModel model)
         {
+            Console.WriteLine("Received image");
+            Console.WriteLine(model.File.FileName);
             if (model == null || model.File == null || model.File.Length == 0)
             {
                 return BadRequest("Invalid file");
@@ -39,7 +43,7 @@ namespace HackatonBackend.Controllers
             var metaData = Image.MetadataConverter.GetMetadata(filePath);
             var promt = Image.ImageSender.SendImage(filePath).Result;
             System.IO.File.Delete(filePath);
-            return Ok(new { Prompt = promt });
+            return new JsonResult(new { text = promt });
         }
     }
 }
