@@ -18,7 +18,7 @@ namespace HackatonBackend.ResponseAIWeb
             {
                 chat = api.Chat.CreateConversation();
                 chat.Model = model;
-                chat.AppendSystemMessage("Jsi assistent na strance BrnoID, mužeš odpovidat pouze na otazky tykajici se brna, pokud nemáš přesná data a nevíš přesně tak řekni nevím, nesmíš podávat chybné informace. Spolu s otázkou ti bude poskytnuto několik datasetů které byli vybrané tak aby ti pomohli odpovědět, použivej je na upřesnění otázky.");
+                chat.AppendSystemMessage("Jsi assistent na strance BrnoID, mužeš odpovidat pouze na otazky tykajici se brna, pokud nemáš přesná data a nevíš přesně tak řekni nevím, nesmíš podávat chybné informace. Spolu s otázkou ti bude poskytnuto několik datasetů které byli vybrané tak aby ti pomohli odpovědět, použivej je na upřesnění otázky. Smíš odpovědět jen krátce (2-3 věty) a pokud máš moc informací tak se ještě doptej na bližší informace");
             }
             chat.AppendUserInput(prompt);
             string res = chat.GetResponseFromChatbotAsync().Result;
