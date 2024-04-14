@@ -8,6 +8,11 @@ using HackatonBackend.ResponseAIWeb;
 using HackatonBackend.DataSets;
 using System.Collections.Generic;
 using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
+
 
 namespace HackatonBackend.Controllers
 {
@@ -23,14 +28,27 @@ namespace HackatonBackend.Controllers
             _logger = logger;
         }
 
-
-        [HttpPost("{input}", Name = "AskAI")]
-        public async Task<IEnumerable<AIPrompt>> Get(string input)
+        public class MessageModel
         {
-            if (string.IsNullOrWhiteSpace(input))
+            public List<Message> Messages { get; set; }
+        }
+
+        public class Message
+        {
+            public string Role { get; set; }
+            public string Text { get; set; }
+        }
+        [EnableCors("AllowAllOrigins")]
+        [HttpPost("AskAI")]
+        public async Task<IActionResult> Get([FromBody] MessageModel model)
+        {
+            Console.WriteLine("Received message: " + model.Messages[0].Text);
+            if (string.IsNullOrWhiteSpace(model.Messages[0].Text))
             {
                 return null;
             }
+            string input = model.Messages[0].Text;
+
             DataSetGetter dataSetGetter = new DataSetGetter();
             List<DataSet> dataSets = dataSetGetter.GetMockSets();
             DataSet bestDataSet = dataSetGetter.GetBestDataset(input, dataSets);
@@ -49,13 +67,7 @@ namespace HackatonBackend.Controllers
 
             string res = webManager.GenerateResponse(bestDatasetContent + input, input).Result;
 
-            AIPrompt aIRequest = new AIPrompt
-            {
-                Prompt = res,
-            };
-            List<AIPrompt> list = new List<AIPrompt>();
-            list.Add(aIRequest);
-            return list;
+            return new JsonResult(new {text = res });
         }
     }
 }
